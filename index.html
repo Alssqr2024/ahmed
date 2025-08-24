@@ -3,447 +3,325 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>أحمد الضريبي- مطور برمجيات</title>
+  <title>أحمد الضريبي - مطور برمجيات</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-color: #007bff;
-      --secondary-color: #00c6ff;
-      --accent-color: #6c63ff;
-      --dark-color: #333;
-      --light-color: #f8f9fa;
-      --success-color: #28a745;
-      --card-bg: #ffffff;
-      --text-color: #333;
-      --transition: all 0.3s ease;
+      --primary: #1565c0;
+      --secondary: #00b8d4;
+      --accent: #ffd600;
+      --dark: #22223b;
+      --light: #f8f9fa;
+      --card-bg: #fff;
+      --shadow: 0 8px 32px rgba(30, 60, 150, 0.12);
+      --radius: 18px;
+      --transition: all 0.25s cubic-bezier(.4,2.2,.2,1);
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    html, body { height: 100%; }
     body {
       font-family: 'Cairo', sans-serif;
-      line-height: 1.6;
-      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-      color: var(--text-color);
-      overflow-x: hidden;
+      margin: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #a9c9ff 100%);
+      min-height: 100vh;
+      color: var(--dark);
     }
-
-    /* تحسين الشريط العلوي */
     header {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      background: rgba(21,101,192,0.93);
       color: #fff;
-      padding: 1.5rem 2rem;
-      text-align: center;
       position: sticky;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 6px 30px rgba(21,101,192,0.07);
+      transition: var(--transition);
+      backdrop-filter: blur(6px);
     }
-
     .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: auto;
     }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
+    .header-content h1 {
+      font-size: 3rem;
       font-weight: 700;
-      letter-spacing: -0.5px;
+      margin-bottom: 0.2em;
+      letter-spacing: -1px;
     }
-
-    header p {
-      margin: 0.5rem 0 1rem;
-      font-size: 1.2rem;
-      opacity: 0.9;
+    .header-content p {
+      font-size: 1.3rem;
+      opacity: .92;
+      margin-bottom: 1.5em;
     }
-
     nav {
       display: flex;
+      gap: 1.7em;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1.5rem;
-      margin-top: 1rem;
     }
-
     nav a {
       color: #fff;
-      text-decoration: none;
       font-weight: 600;
+      text-decoration: none;
       font-size: 1.1rem;
-      padding: 0.5rem 1rem;
+      padding: .55em 1.3em;
       border-radius: 50px;
-      transition: var(--transition);
+      transition: background .18s;
       position: relative;
     }
-
     nav a:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
+      background: var(--secondary);
+      color: var(--dark);
     }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: white;
-      transition: var(--transition);
-      transform: translateX(-50%);
-    }
-
-    nav a:hover::after {
-      width: 70%;
-    }
-
-    /* الأقسام العامة */
-    section {
-      padding: 5rem 2rem;
-      max-width: 1200px;
+    main {
+      max-width: 1100px;
       margin: 0 auto;
+      padding: 1rem;
     }
-
-    section:nth-child(even) {
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 12px;
-      margin: 2rem auto;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    section {
+      margin: 2.7rem 0;
+      padding: 2.2rem 1.2rem;
+      border-radius: var(--radius);
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+      animation: fadein 1.2s;
     }
-
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
     h2 {
+      margin-bottom: 1.7em;
       text-align: center;
-      margin-bottom: 3rem;
-      color: var(--primary-color);
-      font-size: 2.5rem;
+      color: var(--primary);
+      font-size: 2.1rem;
       position: relative;
-      padding-bottom: 1rem;
     }
-
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 4px;
-      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    h2:after {
+      content: "";
+      display: block;
+      width: 90px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      margin: 12px auto 0;
       border-radius: 2px;
     }
-
-    /* قسم عني */
-    #about {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
+    /* About Section */
     #about p {
-      font-size: 1.2rem;
-      max-width: 800px;
-      line-height: 1.8;
-      margin-bottom: 2rem;
+      font-size: 1.27rem;
+      line-height: 2;
+      text-align: center;
+      max-width: 700px;
+      margin: auto;
     }
-
-    /* البطاقات بشكل عام */
-    .skills, .projects, .certificates {
+    /* Skills */
+    .skills {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
-      margin-top: 2rem;
     }
-
     .card {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      background: #f8fcff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem 1.3rem;
       transition: var(--transition);
       display: flex;
       flex-direction: column;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-    }
-
-    .card h3 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-      font-size: 1.4rem;
-    }
-
-    .card p {
-      margin-bottom: 1.5rem;
-      flex-grow: 1;
-    }
-
-    /* قسم المهارات */
-    .skill-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .skill-item i {
-      margin-left: 0.5rem;
-      color: var(--primary-color);
-      font-size: 1.2rem;
-    }
-
-    /* قسم المشاريع */
-    .project-card {
-      position: relative;
-    }
-
-    .project-image {
-      height: 200px;
-      background: linear-gradient(45deg, #6c63ff, #00c6ff);
-      border-radius: 12px;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 4rem;
-      overflow: hidden;
-    }
-
-    .project-buttons {
-      display: flex;
       gap: 1rem;
-      margin-top: auto;
     }
-
-    /* قسم الشهادات */
-    .certificate-item {
+    .card h3 {
+      color: var(--secondary);
+      font-size: 1.32rem;
+      margin-bottom: 0.7em;
+      font-weight: 700;
+    }
+    .skill-item {
+      margin-bottom: 0.5em;
+      font-size: 1.07em;
       display: flex;
       align-items: center;
+      gap: .7em;
     }
-
-    .certificate-item i {
-      margin-left: 1rem;
-      color: var(--success-color);
-      font-size: 2rem;
+    /* Projects */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
     }
-
-    /* قسم التواصل */
-    #contact {
-      text-align: center;
-    }
-
-    .contact-buttons {
+    .project-card {
+      padding: 0;
+      overflow: hidden;
+      background: #fafdff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-
-    /* الأزرار */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.8rem 1.5rem;
-      background: var(--primary-color);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 50px;
+      flex-direction: column;
       transition: var(--transition);
-      font-weight: 600;
+      position: relative;
+    }
+    .project-cover {
+      background: linear-gradient(120deg, var(--secondary), var(--primary));
+      color: #fff;
+      font-size: 2.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 180px;
+      border-bottom: 3px solid var(--accent);
+    }
+    .project-card h3 {
+      margin: 1.2rem 1.2rem 0 1.2rem;
+      font-size: 1.25rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .project-card p {
+      margin: 0.5rem 1.2rem 1rem 1.2rem;
+      font-size: 1.07rem;
+      color: #333;
+    }
+    .project-buttons {
+      margin: 0 1.1rem 1.2rem 1.1rem;
+      display: flex;
+      gap: 1em;
+      justify-content: flex-start;
+    }
+    .btn {
+      background: var(--primary);
+      color: #fff;
       border: none;
+      border-radius: 40px;
+      padding: .7em 1.3em;
+      font-weight: 600;
+      font-size: 1em;
       cursor: pointer;
-      gap: 0.5rem;
-      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(21,101,192,0.09);
+      display: flex;
+      align-items: center;
+      gap: .5em;
+      text-decoration: none;
     }
-
-    .btn:hover {
-      background: #0056b3;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    .btn:hover, .btn:focus {
+      background: var(--secondary);
+      color: var(--dark);
+      transform: translateY(-3px) scale(1.03);
     }
-
     .btn-outline {
       background: transparent;
-      border: 2px solid var(--primary-color);
-      color: var(--primary-color);
+      border: 2px solid var(--primary);
+      color: var(--primary);
       box-shadow: none;
     }
-
     .btn-outline:hover {
-      background: var(--primary-color);
-      color: white;
+      background: var(--primary);
+      color: #fff;
     }
-
-    /* التذييل */
+    /* Certificates */
+    .certificates {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .certificate-item {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      background: #f8fcff;
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+    .certificate-item i {
+      color: var(--accent);
+      font-size: 2.1rem;
+      min-width: 2.2rem;
+    }
+    /* Contact */
+    #contact .contact-buttons {
+      display: flex;
+      gap: 1.5em;
+      justify-content: center;
+      margin-top: 1.7em;
+      flex-wrap: wrap;
+    }
     footer {
       text-align: center;
-      padding: 2rem;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      padding: 2.2rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
       color: #fff;
-      margin-top: 4rem;
+      font-size: 1.15rem;
+      margin-top: 3rem;
+      border-radius: 30px 30px 0 0;
     }
-
-    /* النافذة المنبثقة */
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 2000;
-      overflow-y: auto;
-      padding: 2rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal.show {
-      display: block;
-      opacity: 1;
-    }
-
-    .modal-content {
-      background: white;
-      max-width: 800px;
-      margin: 2rem auto;
-      border-radius: 16px;
-      padding: 2rem;
-      position: relative;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      transform: translateY(-50px);
-      transition: transform 0.3s ease;
-    }
-
-    .modal.show .modal-content {
-      transform: translateY(0);
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #999;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(30,40,80,0.38);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
       transition: var(--transition);
     }
-
-    .close-modal:hover {
-      color: var(--dark-color);
+    .modal.show { display: flex; }
+    .modal-content {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 48px rgba(30,60,150,.15);
+      padding: 2.4rem 2rem;
+      max-width: 760px;
+      width: 95vw;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      animation: fadein .5s;
     }
-
+    .close-modal {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.5rem;
+      font-size: 1.7rem;
+      color: var(--dark);
+      cursor: pointer;
+      opacity: 0.7;
+      transition: .14s;
+    }
+    .close-modal:hover { opacity: 1; color: var(--primary);}
     .modal-header {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
+      margin-bottom: 1.1rem;
       border-bottom: 1px solid #eee;
+      padding-bottom: .7em;
     }
-
     .modal-body {
-      line-height: 1.8;
+      font-size: 1.13rem;
+      line-height: 2;
+      color: #21243b;
+      direction: ltr;
+      background: #f8fcff;
+      padding: 1.1rem 1.5rem;
+      border-radius: 12px;
+      overflow-x: auto;
     }
-
-    /* التجاوب مع الشاشات المختلفة */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      
-      header p {
-        font-size: 1rem;
-      }
-      
-      nav {
-        gap: 0.8rem;
-      }
-      
-      nav a {
-        font-size: 0.9rem;
-        padding: 0.4rem 0.8rem;
-      }
-      
-      section {
-        padding: 3rem 1.5rem;
-      }
-      
-      h2 {
-        font-size: 2rem;
-      }
-      
-      .skills, .projects, .certificates {
-        grid-template-columns: 1fr;
-      }
-      
-      .project-buttons {
-        flex-direction: column;
-      }
-      
-      .contact-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-
-    /* تأثيرات للصفحة */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* شريط التقدم */
-    .progress-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: transparent;
-      z-index: 1001;
-    }
-
-    .progress-bar {
-      height: 4px;
-      background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
-      width: 0%;
-      transition: width 0.2s ease;
+    @media (max-width: 700px) {
+      .header-content h1 { font-size: 2rem;}
+      .header-content p { font-size: 1rem;}
+      section {padding: 1.2rem;}
+      .modal-content {padding: 1.2rem 0.4rem;}
     }
   </style>
 </head>
 <body>
-  <!-- شريط التقدم -->
-  <div class="progress-container">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-
   <header>
     <div class="header-content">
       <h1>أحمد الضريبي</h1>
-      <p>مطور برمجيات | Python & Flutter | مهتم بالأنظمة الذكية</p>
+      <p>مطور برمجيات | Python & Flutter | الأنظمة الذكية والويب</p>
       <nav>
         <a href="#about"><i class="fas fa-user"></i> عني</a>
         <a href="#skills"><i class="fas fa-code"></i> المهارات</a>
@@ -453,182 +331,155 @@
       </nav>
     </div>
   </header>
-
-  <section id="about">
-    <h2>عنّي</h2>
-    <p class="fade-in">
-      أنا أحمد عبدالله الضريبي خريج علوم حاسوب (جامعة شبوة - 2025). متخصص في تطوير الأنظمة الذكية 
-      وتطبيقات الويب والموبايل باستخدام Python و Flutter. مهتم بتقنيات الذكاء الاصطناعي وتحليل البيانات 
-      وبناء حلول برمجية مبتكرة.
-    </p>
-  </section>
-
-  <section id="skills">
-    <h2>المهارات</h2>
-    <div class="skills">
-      <div class="card fade-in">
-        <h3><i class="fas fa-laptop-code"></i> لغات البرمجة</h3>
-        <div class="skill-item"><i class="fab fa-python"></i> <span>Python</span></div>
-        <div class="skill-item"><i class="fas fa-code"></i> <span>Dart</span></div>
-        <div class="skill-item"><i class="fas fa-cogs"></i> <span>C++</span></div>
-        <div class="skill-item"><i class="fas fa-window-maximize"></i> <span>C#</span></div>
-        <div class="skill-item"><i class="fab fa-php"></i> <span>PHP</span></div>
-      </div>
-      
-      <div class="card fade-in">
-        <h3><i class="fas fa-toolbox"></i> الأطر والأدوات</h3>
-        <div class="skill-item"><i class="fas fa-bolt"></i> <span>FastAPI</span></div>
-        <div class="skill-item"><i class="fab fa-flutter"></i> <span>Flutter</span></div>
-        <div class="skill-item"><i class="fab fa-laravel"></i> <span>Laravel</span></div>
-      </div>
-      
-      <div class="card fade-in">
-        <h3><i class="fas fa-database"></i> قواعد البيانات</h3>
-        <div class="skill-item"><i class="fas fa-database"></i> <span>PostgreSQL</span></div>
-        <div class="skill-item"><i class="fas fa-database"></i> <span>MySQL</span></div>
-        <div class="skill-item"><i class="fas fa-server"></i> <span>SQL Server</span></div>
-        <div class="skill-item"><i class="fas fa-mobile-alt"></i> <span>SQLite</span></div>
-      </div>
-      
-      <div class="card fade-in">
-        <h3><i class="fas fa-tools"></i> أدوات التطوير</h3>
-        <div class="skill-item"><i class="fab fa-git-alt"></i> <span>Git/GitHub</span></div>
-        <div class="skill-item"><i class="fas fa-code"></i> <span>VS Code</span></div>
-        <div class="skill-item"><i class="fab fa-android"></i> <span>Android Studio</span></div>
-        <div class="skill-item"><i class="fab fa-python"></i> <span>PyCharm</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects">
-    <h2>المشاريع</h2>
-    <div class="projects">
-      <div class="card project-card fade-in">
-        <div class="project-image">
-          <i class="fas fa-fingerprint"></i>
+  <main>
+    <section id="about">
+      <h2>عنّي</h2>
+      <p>
+        أنا أحمد عبدالله الضريبي، خريج علوم حاسوب (جامعة شبوة - 2025). متخصص في تطوير الأنظمة الذكية وتطبيقات الويب والموبايل باستخدام Python و Flutter. مهتم بتقنيات الذكاء الاصطناعي وتحليل البيانات وبناء حلول برمجية مبتكرة.
+      </p>
+    </section>
+    <section id="skills">
+      <h2>المهارات</h2>
+      <div class="skills">
+        <div class="card">
+          <h3><i class="fas fa-laptop-code"></i> لغات البرمجة</h3>
+          <div class="skill-item"><i class="fab fa-python"></i> Python</div>
+          <div class="skill-item"><i class="fas fa-code"></i> Dart</div>
+          <div class="skill-item"><i class="fas fa-cogs"></i> C++</div>
+          <div class="skill-item"><i class="fas fa-window-maximize"></i> C#</div>
+          <div class="skill-item"><i class="fab fa-php"></i> PHP</div>
         </div>
-        <h3>نظام حضور وانصراف</h3>
-        <p>نظام يعتمد على التعرف على الوجه والبصمة باستخدام Python وقاعدة بيانات PostgreSQL.</p>
-        <div class="project-buttons">
-          <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
-            <i class="fab fa-github"></i> GitHub
-          </a>
-          <button class="btn btn-outline view-details" data-project="attendance">
-            <i class="fas fa-info-circle"></i> التفاصيل
-          </button>
+        <div class="card">
+          <h3><i class="fas fa-toolbox"></i> الأطر والأدوات</h3>
+          <div class="skill-item"><i class="fas fa-bolt"></i> FastAPI</div>
+          <div class="skill-item"><i class="fab fa-flutter"></i> Flutter</div>
+          <div class="skill-item"><i class="fab fa-laravel"></i> Laravel</div>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-database"></i> قواعد البيانات</h3>
+          <div class="skill-item"><i class="fas fa-database"></i> PostgreSQL</div>
+          <div class="skill-item"><i class="fas fa-database"></i> MySQL</div>
+          <div class="skill-item"><i class="fas fa-server"></i> SQL Server</div>
+          <div class="skill-item"><i class="fas fa-mobile-alt"></i> SQLite</div>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-tools"></i> أدوات التطوير</h3>
+          <div class="skill-item"><i class="fab fa-git-alt"></i> Git/GitHub</div>
+          <div class="skill-item"><i class="fas fa-code"></i> VS Code</div>
+          <div class="skill-item"><i class="fab fa-android"></i> Android Studio</div>
+          <div class="skill-item"><i class="fab fa-python"></i> PyCharm</div>
         </div>
       </div>
-      
-      <div class="card project-card fade-in">
-        <div class="project-image">
-          <i class="fas fa-book"></i>
+    </section>
+    <section id="projects">
+      <h2>المشاريع</h2>
+      <div class="projects">
+        <!-- project card example -->
+        <div class="project-card" data-repo="Alssqr2024/attendance-system">
+          <div class="project-cover"><i class="fas fa-fingerprint"></i></div>
+          <h3>نظام حضور وانصراف</h3>
+          <p>نظام يعتمد على التعرف على الوجه والبصمة باستخدام Python وقاعدة بيانات PostgreSQL.</p>
+          <div class="project-buttons">
+            <a class="btn" href="https://github.com/Alssqr2024/attendance-system" target="_blank">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <button class="btn btn-outline view-details" data-repo="Alssqr2024/attendance-system">
+              <i class="fas fa-book-open"></i> عرض التفاصيل
+            </button>
+          </div>
         </div>
-        <h3>نظام مكتبة أونلاين</h3>
-        <p>موقع إلكتروني لإدارة المكتبات باستخدام Laravel و MySQL.</p>
-        <div class="project-buttons">
-          <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
-            <i class="fab fa-github"></i> GitHub
-          </a>
-          <button class="btn btn-outline view-details" data-project="library">
-            <i class="fas fa-info-circle"></i> التفاصيل
-          </button>
+        <div class="project-card" data-repo="Alssqr2024/online-library">
+          <div class="project-cover"><i class="fas fa-book"></i></div>
+          <h3>نظام مكتبة أونلاين</h3>
+          <p>موقع إلكتروني لإدارة المكتبات باستخدام Laravel و MySQL.</p>
+          <div class="project-buttons">
+            <a class="btn" href="https://github.com/Alssqr2024/online-library" target="_blank">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <button class="btn btn-outline view-details" data-repo="Alssqr2024/online-library">
+              <i class="fas fa-book-open"></i> عرض التفاصيل
+            </button>
+          </div>
         </div>
-      </div>
-      
-      <div class="card project-card fade-in">
-        <div class="project-image">
-          <i class="fab fa-telegram"></i>
+        <div class="project-card" data-repo="Alssqr2024/telegram-bots">
+          <div class="project-cover"><i class="fab fa-telegram"></i></div>
+          <h3>بوتات تليجرام</h3>
+          <p>عدة بوتات تفاعلية باستخدام Python وواجهات برمجية.</p>
+          <div class="project-buttons">
+            <a class="btn" href="https://github.com/Alssqr2024/telegram-bots" target="_blank">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <button class="btn btn-outline view-details" data-repo="Alssqr2024/telegram-bots">
+              <i class="fas fa-book-open"></i> عرض التفاصيل
+            </button>
+          </div>
         </div>
-        <h3>بوتات تليجرام</h3>
-        <p>عدة بوتات تفاعلية باستخدام Python وواجهات برمجية.</p>
-        <div class="project-buttons">
-          <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
-            <i class="fab fa-github"></i> GitHub
-          </a>
-          <button class="btn btn-outline view-details" data-project="telegram">
-            <i class="fas fa-info-circle"></i> التفاصيل
-          </button>
-        </div>
-      </div>
-      
-      <div class="card project-card fade-in">
-        <div class="project-image">
-          <i class="fas fa-heartbeat"></i>
-        </div>
-        <h3>تشخيص أمراض مبسط</h3>
-        <p>نظام خبير يساعد في تشخيص الأمراض اعتمادًا على تقنيات الذكاء الاصطناعي.</p>
-        <div class="project-buttons">
-          <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
-            <i class="fab fa-github"></i> GitHub
-          </a>
-          <button class="btn btn-outline view-details" data-project="diagnosis">
-            <i class="fas fa-info-circle"></i> التفاصيل
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="certificates">
-    <h2>الشهادات</h2>
-    <div class="certificates">
-      <div class="card certificate-item fade-in">
-        <i class="fas fa-certificate"></i>
-        <div>
-          <h3>Google AI Essentials</h3>
-          <p>شهادة في أساسيات الذكاء الاصطناعي من جوجل</p>
+        <div class="project-card" data-repo="Alssqr2024/ai-diagnosis">
+          <div class="project-cover"><i class="fas fa-heartbeat"></i></div>
+          <h3>تشخيص أمراض مبسط</h3>
+          <p>نظام خبير يساعد في التشخيص الأولي للأمراض اعتمادًا على الذكاء الاصطناعي.</p>
+          <div class="project-buttons">
+            <a class="btn" href="https://github.com/Alssqr2024/ai-diagnosis" target="_blank">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <button class="btn btn-outline view-details" data-repo="Alssqr2024/ai-diagnosis">
+              <i class="fas fa-book-open"></i> عرض التفاصيل
+            </button>
+          </div>
         </div>
       </div>
-      
-      <div class="card certificate-item fade-in">
-        <i class="fas fa-certificate"></i>
-        <div>
-          <h3>AI for Everyone (Coursera)</h3>
-          <p>شهادة في الذكاء الاصطناعي للجميع</p>
+    </section>
+    <section id="certificates">
+      <h2>الشهادات</h2>
+      <div class="certificates">
+        <div class="certificate-item"><i class="fas fa-certificate"></i>
+          <div>
+            <h3>Google AI Essentials</h3>
+            <p>شهادة في أساسيات الذكاء الاصطناعي من جوجل</p>
+          </div>
+        </div>
+        <div class="certificate-item"><i class="fas fa-certificate"></i>
+          <div>
+            <h3>AI for Everyone (Coursera)</h3>
+            <p>شهادة في الذكاء الاصطناعي للجميع</p>
+          </div>
+        </div>
+        <div class="certificate-item"><i class="fas fa-certificate"></i>
+          <div>
+            <h3>Computer Fundamentals</h3>
+            <p>شهادة في أساسيات الحاسوب</p>
+          </div>
+        </div>
+        <div class="certificate-item"><i class="fas fa-certificate"></i>
+          <div>
+            <h3>MikroTik Networking</h3>
+            <p>شهادة في شبكات MikroTik</p>
+          </div>
         </div>
       </div>
-      
-      <div class="card certificate-item fade-in">
-        <i class="fas fa-certificate"></i>
-        <div>
-          <h3>Computer Fundamentals</h3>
-          <p>شهادة في أساسيات الحاسوب</p>
-        </div>
+    </section>
+    <section id="contact">
+      <h2>تواصل معي</h2>
+      <p style="text-align:center; margin-bottom: 2rem;">
+        يمكنكم التواصل معي عبر البريد أو الشبكات الاجتماعية:
+      </p>
+      <div class="contact-buttons">
+        <a class="btn" href="mailto:programmerahmed2024@gmail.com">
+          <i class="fas fa-envelope"></i> البريد
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/ahmedaldhuraibi" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
       </div>
-      
-      <div class="card certificate-item fade-in">
-        <i class="fas fa-certificate"></i>
-        <div>
-          <h3>MikroTik Networking</h3>
-          <p>شهادة في شبكات MikroTik</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2>تواصل معي</h2>
-    <p style="text-align:center; margin-bottom: 2rem;">
-      يمكنكم التواصل معي عبر البريد أو الشبكات الاجتماعية:
-    </p>
-    <div class="contact-buttons">
-      <a class="btn" href="mailto:ahmed.aldhuraibi@example.com">
-        <i class="fas fa-envelope"></i> البريد
-      </a>
-      <a class="btn" href="https://www.linkedin.com/in/ahmedaldhuraibi" target="_blank">
-        <i class="fab fa-linkedin"></i> LinkedIn
-      </a>
-      <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
-        <i class="fab fa-github"></i> GitHub
-      </a>
-    </div>
-  </section>
-
+    </section>
+  </main>
   <footer>
-    <p>© 2025 أحمد الضريبي- جميع الحقوق محفوظة</p>
+    <p>© 2025 أحمد الضريبي - جميع الحقوق محفوظة</p>
   </footer>
-
-  <!-- نافذة عرض التفاصيل -->
+  <!-- Modal for README -->
   <div class="modal" id="projectModal">
     <div class="modal-content">
       <span class="close-modal" id="closeModal">&times;</span>
@@ -636,170 +487,64 @@
         <h2 id="modalTitle">تفاصيل المشروع</h2>
       </div>
       <div class="modal-body" id="modalBody">
-        <!-- محتوى الـ README سيتم إضافته هنا عبر JavaScript -->
+        <div style="text-align:center;">جاري تحميل ملف README...</div>
       </div>
     </div>
   </div>
-
   <script>
-    // تأثير التمرير السلس
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener("click", function(e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute("href")).scrollIntoView({
-          behavior: "smooth"
-        });
+        document.querySelector(this.getAttribute("href")).scrollIntoView({behavior: "smooth"});
       });
     });
 
-    // إظهار العناصر عند التمرير
-    const fadeElements = document.querySelectorAll('.fade-in');
-    
-    const elementInView = (el, scrollOffset = 0) => {
-      const elementTop = el.getBoundingClientRect().top;
-      return (
-        elementTop <= 
-        ((window.innerHeight || document.documentElement.clientHeight) - scrollOffset)
-      );
-    };
-    
-    const displayScrollElement = (element) => {
-      element.classList.add('visible');
-    };
-    
-    const hideScrollElement = (element) => {
-      element.classList.remove('visible');
-    };
-    
-    const handleScrollAnimation = () => {
-      fadeElements.forEach((el) => {
-        if (elementInView(el, 100)) {
-          displayScrollElement(el);
-        } else {
-          hideScrollElement(el);
-        }
-      });
-    };
-    
-    window.addEventListener('scroll', () => {
-      handleScrollAnimation();
-    });
-    
-    // تشغيل مرة أولى عند التحميل
-    window.addEventListener('load', handleScrollAnimation);
-
-    // شريط التقدم
-    window.onscroll = function() {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      document.getElementById("progressBar").style.width = scrolled + "%";
-    };
-
-    // إدارة النوافذ المنبثقة
+    // Modal logic
     const modal = document.getElementById('projectModal');
     const closeModalBtn = document.getElementById('closeModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
     const viewDetailsBtns = document.querySelectorAll('.view-details');
 
-    // محتوى المشاريع (يمكن استبداله بمحتوى حقيقي من GitHub API)
-    const projectContents = {
-      attendance: {
-        title: "نظام حضور وانصراف",
-        content: `<p>نظام متكامل للحضور والانصراف باستخدام تقنيات التعرف على الوجه والبصمة.</p>
-                  <h3>المميزات:</h3>
-                  <ul>
-                    <li>دقة عالية في التعرف على الوجوه</li>
-                    <li>واجهة مستخدم سهلة الاستخدام</li>
-                    <li>تقارير مفصلة عن الحضور والانصراف</li>
-                    <li>دمج سهل مع أنظمة الموارد البشرية</li>
-                  </ul>
-                  <h3>التقنيات المستخدمة:</h3>
-                  <ul>
-                    <li>Python</li>
-                    <li>OpenCV</li>
-                    <li>PostgreSQL</li>
-                    <li>FastAPI</li>
-                  </ul>`
-      },
-      library: {
-        title: "نظام مكتبة أونلاين",
-        content: `<p>منصة إلكترونية متكاملة لإدارة المكتبات ومحتواها.</p>
-                  <h3>المميزات:</h3>
-                  <ul>
-                    <li>إدارة الكتب والمحتوى الرقمي</li>
-                    <li>نظام استعارة كتب متقدم</li>
-                    <li>إشعارات للمواعيد النهائية للاستعارة</li>
-                    <li>بحث متقدم في المحتوى</li>
-                  </ul>
-                  <h3>التقنيات المستخدمة:</h3>
-                  <ul>
-                    <li>Laravel</li>
-                    <li>MySQL</li>
-                    <li>JavaScript</li>
-                    <li>Bootstrap</li>
-                  </ul>`
-      },
-      telegram: {
-        title: "بوتات تليجرام",
-        content: `<p>مجموعة من البوتات الذكية لمنصة تليجرام لأتمتة المهام المختلفة.</p>
-                  <h3>المميزات:</h3>
-                  <ul>
-                    <li>ردود تلقائية ذكية</li>
-                    <li>مزامنة مع قواعد البيانات</li>
-                    <li>واجهة إدارة سهلة</li>
-                    <li>دعم متعدد اللغات</li>
-                  </ul>
-                  <h3>التقنيات المستخدمة:</h3>
-                  <ul>
-                    <li>Python</li>
-                    <li>Telegram Bot API</li>
-                    <li>SQLite</li>
-                    <li>Webhooks</li>
-                  </ul>`
-      },
-      diagnosis: {
-        title: "تشخيص أمراض مبسط",
-        content: `<p>نظام خبير يساعد في التشخيص الأولي للأمراض بناءً على الأعراض.</p>
-                  <h3>المميزات:</h3>
-                  <ul>
-                    <li>خوارزميات ذكاء اصطناعي للتحليل</li>
-                    <li>واجهة مستخدم بسيطة وسهلة</li>
-                    <li>قاعدة بيانات للأعراض والأمراض</li>
-                    <li>نتائج فورية مع نصائح أولية</li>
-                  </ul>
-                  <h3>التقنيات المستخدمة:</h3>
-                  <ul>
-                    <li>Python</li>
-                    <li>Scikit-learn</li>
-                    <li>Flask</li>
-                    <li>SQLite</li>
-                  </ul>`
+    // Helper: Fetch README.md from GitHub and render as HTML (markdown)
+    async function fetchAndShowReadme(repoFull) {
+      modalBody.innerHTML = `<div style="text-align:center;">جاري تحميل ملف README...</div>`;
+      // Get README raw content from GitHub API
+      try {
+        const apiUrl = `https://api.github.com/repos/${repoFull}/readme`;
+        const res = await fetch(apiUrl, {headers: {'Accept': 'application/vnd.github.v3.raw'}});
+        if (!res.ok) throw new Error('لم يتم العثور على ملف README');
+        const markdown = await res.text();
+        // Convert Markdown to HTML using GitHub API or marked.js (for now, use CDN)
+        if (!window.marked) {
+          // load marked.js if not loaded
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+          document.body.appendChild(script);
+          await new Promise(resolve => script.onload = resolve);
+        }
+        const html = window.marked.parse(markdown);
+        modalBody.innerHTML = `<div>${html}</div>`;
+      } catch (e) {
+        modalBody.innerHTML = `<div style="text-align:center; color:red;">${e.message}</div>`;
       }
-    };
+    }
 
-    // فتح النافذة المنبثقة
+    // Show modal with README
     viewDetailsBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        const projectId = btn.getAttribute('data-project');
-        const project = projectContents[projectId];
-        
-        modalTitle.textContent = project.title;
-        modalBody.innerHTML = project.content;
-        
+        const repo = btn.getAttribute('data-repo');
+        modalTitle.textContent = "تفاصيل المشروع";
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
+        fetchAndShowReadme(repo);
       });
     });
-
-    // إغلاق النافذة المنبثقة
     closeModalBtn.addEventListener('click', () => {
       modal.classList.remove('show');
       document.body.style.overflow = 'auto';
     });
-
-    // إغلاق النافذة عند النقر خارج المحتوى
     window.addEventListener('click', (e) => {
       if (e.target === modal) {
         modal.classList.remove('show');
