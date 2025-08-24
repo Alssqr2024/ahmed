@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أحمد الضريبي- مطور برمجيات</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #00c6ff;
+      --accent-color: #6c63ff;
+      --dark-color: #333;
+      --light-color: #f8f9fa;
+      --success-color: #28a745;
+      --card-bg: #ffffff;
+      --text-color: #333;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+
+    /* تحسين الشريط العلوي */
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      margin: 0.5rem 0 1rem;
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: white;
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+
+    nav a:hover::after {
+      width: 70%;
+    }
+
+    /* الأقسام العامة */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section:nth-child(even) {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      margin: 2rem auto;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      border-radius: 2px;
+    }
+
+    /* قسم عني */
+    #about {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    #about p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    /* البطاقات بشكل عام */
+    .skills, .projects, .certificates {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .card h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .card p {
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    /* قسم المهارات */
+    .skill-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-item i {
+      margin-left: 0.5rem;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+
+    /* قسم المشاريع */
+    .project-card {
+      position: relative;
+    }
+
+    .project-image {
+      height: 200px;
+      background: linear-gradient(45deg, #6c63ff, #00c6ff);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 4rem;
+      overflow: hidden;
+    }
+
+    .project-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: auto;
+    }
+
+    /* قسم الشهادات */
+    .certificate-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .certificate-item i {
+      margin-left: 1rem;
+      color: var(--success-color);
+      font-size: 2rem;
+    }
+
+    /* قسم التواصل */
+    #contact {
+      text-align: center;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    /* الأزرار */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.5rem;
+      background: var(--primary-color);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: var(--transition);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      gap: 0.5rem;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+
+    .btn:hover {
+      background: #0056b3;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    /* التذييل */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      margin-top: 4rem;
+    }
+
+    /* النافذة المنبثقة */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      overflow-y: auto;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.show {
+      display: block;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: white;
+      max-width: 800px;
+      margin: 2rem auto;
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      transform: translateY(-50px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal.show .modal-content {
+      transform: translateY(0);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #999;
+      transition: var(--transition);
+    }
+
+    .close-modal:hover {
+      color: var(--dark-color);
+    }
+
+    .modal-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modal-body {
+      line-height: 1.8;
+    }
+
+    /* التجاوب مع الشاشات المختلفة */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      header p {
+        font-size: 1rem;
+      }
+      
+      nav {
+        gap: 0.8rem;
+      }
+      
+      nav a {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+      }
+      
+      section {
+        padding: 3rem 1.5rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .skills, .projects, .certificates {
+        grid-template-columns: 1fr;
+      }
+      
+      .project-buttons {
+        flex-direction: column;
+      }
+      
+      .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* تأثيرات للصفحة */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* شريط التقدم */
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: transparent;
+      z-index: 1001;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+      width: 0%;
+      transition: width 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+  <!-- شريط التقدم -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <header>
+    <div class="header-content">
+      <h1>أحمد الضريبي</h1>
+      <p>مطور برمجيات | Python & Flutter | مهتم بالأنظمة الذكية</p>
+      <nav>
+        <a href="#about"><i class="fas fa-user"></i> عني</a>
+        <a href="#skills"><i class="fas fa-code"></i> المهارات</a>
+        <a href="#projects"><i class="fas fa-project-diagram"></i> المشاريع</a>
+        <a href="#certificates"><i class="fas fa-certificate"></i> الشهادات</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> تواصل</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="about">
+    <h2>عنّي</h2>
+    <p class="fade-in">
+      أنا أحمد عبدالله الضريبي خريج علوم حاسوب (جامعة شبوة - 2025). متخصص في تطوير الأنظمة الذكية 
+      وتطبيقات الويب والموبايل باستخدام Python و Flutter. مهتم بتقنيات الذكاء الاصطناعي وتحليل البيانات 
+      وبناء حلول برمجية مبتكرة.
+    </p>
+  </section>
+
+  <section id="skills">
+    <h2>المهارات</h2>
+    <div class="skills">
+      <div class="card fade-in">
+        <h3><i class="fas fa-laptop-code"></i> لغات البرمجة</h3>
+        <div class="skill-item"><i class="fab fa-python"></i> <span>Python</span></div>
+        <div class="skill-item"><i class="fas fa-code"></i> <span>Dart</span></div>
+        <div class="skill-item"><i class="fas fa-cogs"></i> <span>C++</span></div>
+        <div class="skill-item"><i class="fas fa-window-maximize"></i> <span>C#</span></div>
+        <div class="skill-item"><i class="fab fa-php"></i> <span>PHP</span></div>
+      </div>
+      
+      <div class="card fade-in">
+        <h3><i class="fas fa-toolbox"></i> الأطر والأدوات</h3>
+        <div class="skill-item"><i class="fas fa-bolt"></i> <span>FastAPI</span></div>
+        <div class="skill-item"><i class="fab fa-flutter"></i> <span>Flutter</span></div>
+        <div class="skill-item"><i class="fab fa-laravel"></i> <span>Laravel</span></div>
+      </div>
+      
+      <div class="card fade-in">
+        <h3><i class="fas fa-database"></i> قواعد البيانات</h3>
+        <div class="skill-item"><i class="fas fa-database"></i> <span>PostgreSQL</span></div>
+        <div class="skill-item"><i class="fas fa-database"></i> <span>MySQL</span></div>
+        <div class="skill-item"><i class="fas fa-server"></i> <span>SQL Server</span></div>
+        <div class="skill-item"><i class="fas fa-mobile-alt"></i> <span>SQLite</span></div>
+      </div>
+      
+      <div class="card fade-in">
+        <h3><i class="fas fa-tools"></i> أدوات التطوير</h3>
+        <div class="skill-item"><i class="fab fa-git-alt"></i> <span>Git/GitHub</span></div>
+        <div class="skill-item"><i class="fas fa-code"></i> <span>VS Code</span></div>
+        <div class="skill-item"><i class="fab fa-android"></i> <span>Android Studio</span></div>
+        <div class="skill-item"><i class="fab fa-python"></i> <span>PyCharm</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>المشاريع</h2>
+    <div class="projects">
+      <div class="card project-card fade-in">
+        <div class="project-image">
+          <i class="fas fa-fingerprint"></i>
+        </div>
+        <h3>نظام حضور وانصراف</h3>
+        <p>نظام يعتمد على التعرف على الوجه والبصمة باستخدام Python وقاعدة بيانات PostgreSQL.</p>
+        <div class="project-buttons">
+          <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <button class="btn btn-outline view-details" data-project="attendance">
+            <i class="fas fa-info-circle"></i> التفاصيل
+          </button>
+        </div>
+      </div>
+      
+      <div class="card project-card fade-in">
+        <div class="project-image">
+          <i class="fas fa-book"></i>
+        </div>
+        <h3>نظام مكتبة أونلاين</h3>
+        <p>موقع إلكتروني لإدارة المكتبات باستخدام Laravel و MySQL.</p>
+        <div class="project-buttons">
+          <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <button class="btn btn-outline view-details" data-project="library">
+            <i class="fas fa-info-circle"></i> التفاصيل
+          </button>
+        </div>
+      </div>
+      
+      <div class="card project-card fade-in">
+        <div class="project-image">
+          <i class="fab fa-telegram"></i>
+        </div>
+        <h3>بوتات تليجرام</h3>
+        <p>عدة بوتات تفاعلية باستخدام Python وواجهات برمجية.</p>
+        <div class="project-buttons">
+          <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <button class="btn btn-outline view-details" data-project="telegram">
+            <i class="fas fa-info-circle"></i> التفاصيل
+          </button>
+        </div>
+      </div>
+      
+      <div class="card project-card fade-in">
+        <div class="project-image">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <h3>تشخيص أمراض مبسط</h3>
+        <p>نظام خبير يساعد في تشخيص الأمراض اعتمادًا على تقنيات الذكاء الاصطناعي.</p>
+        <div class="project-buttons">
+          <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <button class="btn btn-outline view-details" data-project="diagnosis">
+            <i class="fas fa-info-circle"></i> التفاصيل
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certificates">
+    <h2>الشهادات</h2>
+    <div class="certificates">
+      <div class="card certificate-item fade-in">
+        <i class="fas fa-certificate"></i>
+        <div>
+          <h3>Google AI Essentials</h3>
+          <p>شهادة في أساسيات الذكاء الاصطناعي من جوجل</p>
+        </div>
+      </div>
+      
+      <div class="card certificate-item fade-in">
+        <i class="fas fa-certificate"></i>
+        <div>
+          <h3>AI for Everyone (Coursera)</h3>
+          <p>شهادة في الذكاء الاصطناعي للجميع</p>
+        </div>
+      </div>
+      
+      <div class="card certificate-item fade-in">
+        <i class="fas fa-certificate"></i>
+        <div>
+          <h3>Computer Fundamentals</h3>
+          <p>شهادة في أساسيات الحاسوب</p>
+        </div>
+      </div>
+      
+      <div class="card certificate-item fade-in">
+        <i class="fas fa-certificate"></i>
+        <div>
+          <h3>MikroTik Networking</h3>
+          <p>شهادة في شبكات MikroTik</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>تواصل معي</h2>
+    <p style="text-align:center; margin-bottom: 2rem;">
+      يمكنكم التواصل معي عبر البريد أو الشبكات الاجتماعية:
+    </p>
+    <div class="contact-buttons">
+      <a class="btn" href="mailto:ahmed.aldhuraibi@example.com">
+        <i class="fas fa-envelope"></i> البريد
+      </a>
+      <a class="btn" href="https://www.linkedin.com/in/ahmedaldhuraibi" target="_blank">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+      <a class="btn" href="https://github.com/Alssqr2024" target="_blank">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 أحمد الضريبي- جميع الحقوق محفوظة</p>
+  </footer>
+
+  <!-- نافذة عرض التفاصيل -->
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <div class="modal-header">
+        <h2 id="modalTitle">تفاصيل المشروع</h2>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- محتوى الـ README سيتم إضافته هنا عبر JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // تأثير التمرير السلس
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute("href")).scrollIntoView({
+          behavior: "smooth"
+        });
+      });
+    });
+
+    // إظهار العناصر عند التمرير
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const elementInView = (el, scrollOffset = 0) => {
+      const elementTop = el.getBoundingClientRect().top;
+      return (
+        elementTop <= 
+        ((window.innerHeight || document.documentElement.clientHeight) - scrollOffset)
+      );
+    };
+    
+    const displayScrollElement = (element) => {
+      element.classList.add('visible');
+    };
+    
+    const hideScrollElement = (element) => {
+      element.classList.remove('visible');
+    };
+    
+    const handleScrollAnimation = () => {
+      fadeElements.forEach((el) => {
+        if (elementInView(el, 100)) {
+          displayScrollElement(el);
+        } else {
+          hideScrollElement(el);
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', () => {
+      handleScrollAnimation();
+    });
+    
+    // تشغيل مرة أولى عند التحميل
+    window.addEventListener('load', handleScrollAnimation);
+
+    // شريط التقدم
+    window.onscroll = function() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("progressBar").style.width = scrolled + "%";
+    };
+
+    // إدارة النوافذ المنبثقة
+    const modal = document.getElementById('projectModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const viewDetailsBtns = document.querySelectorAll('.view-details');
+
+    // محتوى المشاريع (يمكن استبداله بمحتوى حقيقي من GitHub API)
+    const projectContents = {
+      attendance: {
+        title: "نظام حضور وانصراف",
+        content: `<p>نظام متكامل للحضور والانصراف باستخدام تقنيات التعرف على الوجه والبصمة.</p>
+                  <h3>المميزات:</h3>
+                  <ul>
+                    <li>دقة عالية في التعرف على الوجوه</li>
+                    <li>واجهة مستخدم سهلة الاستخدام</li>
+                    <li>تقارير مفصلة عن الحضور والانصراف</li>
+                    <li>دمج سهل مع أنظمة الموارد البشرية</li>
+                  </ul>
+                  <h3>التقنيات المستخدمة:</h3>
+                  <ul>
+                    <li>Python</li>
+                    <li>OpenCV</li>
+                    <li>PostgreSQL</li>
+                    <li>FastAPI</li>
+                  </ul>`
+      },
+      library: {
+        title: "نظام مكتبة أونلاين",
+        content: `<p>منصة إلكترونية متكاملة لإدارة المكتبات ومحتواها.</p>
+                  <h3>المميزات:</h3>
+                  <ul>
+                    <li>إدارة الكتب والمحتوى الرقمي</li>
+                    <li>نظام استعارة كتب متقدم</li>
+                    <li>إشعارات للمواعيد النهائية للاستعارة</li>
+                    <li>بحث متقدم في المحتوى</li>
+                  </ul>
+                  <h3>التقنيات المستخدمة:</h3>
+                  <ul>
+                    <li>Laravel</li>
+                    <li>MySQL</li>
+                    <li>JavaScript</li>
+                    <li>Bootstrap</li>
+                  </ul>`
+      },
+      telegram: {
+        title: "بوتات تليجرام",
+        content: `<p>مجموعة من البوتات الذكية لمنصة تليجرام لأتمتة المهام المختلفة.</p>
+                  <h3>المميزات:</h3>
+                  <ul>
+                    <li>ردود تلقائية ذكية</li>
+                    <li>مزامنة مع قواعد البيانات</li>
+                    <li>واجهة إدارة سهلة</li>
+                    <li>دعم متعدد اللغات</li>
+                  </ul>
+                  <h3>التقنيات المستخدمة:</h3>
+                  <ul>
+                    <li>Python</li>
+                    <li>Telegram Bot API</li>
+                    <li>SQLite</li>
+                    <li>Webhooks</li>
+                  </ul>`
+      },
+      diagnosis: {
+        title: "تشخيص أمراض مبسط",
+        content: `<p>نظام خبير يساعد في التشخيص الأولي للأمراض بناءً على الأعراض.</p>
+                  <h3>المميزات:</h3>
+                  <ul>
+                    <li>خوارزميات ذكاء اصطناعي للتحليل</li>
+                    <li>واجهة مستخدم بسيطة وسهلة</li>
+                    <li>قاعدة بيانات للأعراض والأمراض</li>
+                    <li>نتائج فورية مع نصائح أولية</li>
+                  </ul>
+                  <h3>التقنيات المستخدمة:</h3>
+                  <ul>
+                    <li>Python</li>
+                    <li>Scikit-learn</li>
+                    <li>Flask</li>
+                    <li>SQLite</li>
+                  </ul>`
+      }
+    };
+
+    // فتح النافذة المنبثقة
+    viewDetailsBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const projectId = btn.getAttribute('data-project');
+        const project = projectContents[projectId];
+        
+        modalTitle.textContent = project.title;
+        modalBody.innerHTML = project.content;
+        
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    // إغلاق النافذة المنبثقة
+    closeModalBtn.addEventListener('click', () => {
+      modal.classList.remove('show');
+      document.body.style.overflow = 'auto';
+    });
+
+    // إغلاق النافذة عند النقر خارج المحتوى
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
+</body>
+</html>
